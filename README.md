@@ -1,4 +1,4 @@
-cd $HOME
-#git clone
-sh -x ./dotfiles/setup.sh
+1. cd $HOME
+2. #git clone
+3. sh -x ./dotfiles/setup.sh
 
