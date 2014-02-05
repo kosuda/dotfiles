@@ -15,18 +15,13 @@ noremap <Down> <Nop>
 noremap <Left> <Nop>
 noremap <Right> <Nop>
 
-syntax enable
-set background=dark
-let g:solarized_termtrans=1
-colorscheme solarized
-
 hi Comment ctermfg=1
 
 set nocompatible
 filetype off
 
 if has('vim_starting')
-    set runtimepath+=~/.vim/bundle/neobundle.vim
+    set runtimepath+=/usr/local/neobundle.vim
     call neobundle#rc(expand('~/.vim/'))
 endif
 
@@ -40,8 +35,14 @@ NeoBundle 'Shougo/neocomplcache'
 NeoBundle 'git://github.com/vim-scripts/pythoncomplete.git'
 NeoBundle 'JavaScript-syntax'
 NeoBundle 'pangloss/vim-javascript'
-" NeoBundle 'teramako/jscomplete-vim'
+NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'myhere/vim-nodejs-complete'
+" web開発系
+NeoBundle 'mattn/emmet-vim'
+NeoBundle 'tpope/vim-surround'
+NeoBundle 'tell-k/vim-browsereload-mac'
+NeoBundle 'othree/html5.vim'
+NeoBundle 'hail2u/vim-css3-syntax'
 
 nmap <Leader>n : NERDTreeToggle<CR>
 
@@ -72,4 +73,23 @@ let g:neocomplcache_omni_functions.javascript = 'nodejscomplete#CompleteJS'
 let g:node_usejscomplete = 1
 
 autocmd BufWritePre * :%s/\s\+$//e
+
+" soralized color
+syntax enable
+set background=dark
+let g:solarized_termtrans=1
+colorscheme solarized
+
+" browser reload
+let g:returnApp = "iTerm"
+nmap <Space>bc :ChromeReloadStart<CR>
+nmap <Space>bC :ChromeReloadStop<CR>
+nmap <Space>bf :FirefoxReloadStart<CR>
+nmap <Space>bF :FirefoxReloadStop<CR>
+nmap <Space>bs :SafariReloadStart<CR>
+nmap <Space>bS :SafariReloadStop<CR>
+nmap <Space>bo :OperaReloadStart<CR>
+nmap <Space>bO :OperaReloadStop<CR>
+nmap <Space>ba :AllBrowserReloadStart<CR>
+nmap <Space>bA :AllBrowserReloadStop<CR>
 
