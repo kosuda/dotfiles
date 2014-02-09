@@ -43,6 +43,8 @@ NeoBundle 'tpope/vim-surround'
 NeoBundle 'tell-k/vim-browsereload-mac'
 NeoBundle 'othree/html5.vim'
 NeoBundle 'hail2u/vim-css3-syntax'
+" angular syntax
+NeoBundle 'othree/javascript-libraries-syntax.vim'
 
 nmap <Leader>n : NERDTreeToggle<CR>
 
@@ -71,6 +73,8 @@ endif
 let g:neocomplcache_omni_functions.javascript = 'nodejscomplete#CompleteJS'
 
 let g:node_usejscomplete = 1
+" javascript library syntax
+let g:used_javascript_libs = 'angularjs'
 
 autocmd BufWritePre * :%s/\s\+$//e
 
