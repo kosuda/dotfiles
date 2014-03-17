@@ -33,6 +33,7 @@ cask install iterm2
 cask install skype
 cask install virtualbox
 cask install vlc
+cask install xtrafinder
 
 # remove outdated versions
 cleanup
