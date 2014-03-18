@@ -160,7 +160,7 @@ source ~/.pythonbrew/etc/bashrc
 alias mkvenv='pythonbrew venv create'
 alias workon='pythonbrew venv use'
 alias rmvenv='pythonbrew venv delte'
-pythonbrew switch 3.3.0
+pythonbrew switch 3.3.1
 
 # postgres
 PATH=$PATH:/opt/local/lib/postgresql92/bin
