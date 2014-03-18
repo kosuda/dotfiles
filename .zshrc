@@ -139,9 +139,9 @@ case ${OSTYPE} in
 esac
 
 # mongo
-alias mongostart='sudo mongod -f /opt/local/var/etc/mongodb/mongodb.conf'
+alias mongostart='sudo mongod -f /usr/local/etc/mongod.conf'
 function mongostop() {
-    local mongopid=`less /opt/local/var/etc/mongodb/mongod.lock`
+    local mongopid=`less /usr/local/etc/mongod.lock`
     if [[ $mongopid =~ [[:digit:]] ]]; then
         sudo kill -15 $mongopid
         echo mongod process $mongopid terminated
