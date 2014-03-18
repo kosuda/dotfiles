@@ -35,6 +35,8 @@ cask install virtualbox
 cask install vlc
 cask install xtrafinder
 
+#brew cask alfred link
+
 # remove outdated versions
 cleanup
 
