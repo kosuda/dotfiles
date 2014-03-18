@@ -31,6 +31,7 @@ cask install google-chrome
 cask install google-ja-input
 cask install iterm2
 cask install skype
+cask install utorrent
 cask install vagrant
 cask install virtualbox
 cask install vlc
