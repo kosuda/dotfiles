@@ -152,7 +152,7 @@ function mongostop() {
 
 # node
 source ~/.nvm/nvm.sh
-nvm use 0.8
+nvm use 0.10
 export NODE_PATH=${NVM_PATH}_modules
 
 # python
