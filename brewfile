@@ -11,10 +11,12 @@ install brew-cask
 
 # install packages
 install casperjs
+install fuse4x
 install jmeter
 install mobile-shell
 install mongodb
 install mysql
+install ntfs-3g
 install phantomjs
 install sqlite3
 install subversion
@@ -24,12 +26,14 @@ install zsh
 # install .dmg
 cask install appcleaner
 cask install caffeine
+cask install clipmenu
 cask install cyberduck
 cask install dropbox
 cask install firefox
 cask install google-chrome
 cask install google-ja-input
 cask install iterm2
+cask install osxfuse
 cask install skype
 cask install utorrent
 cask install vagrant
