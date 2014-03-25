@@ -5,7 +5,7 @@ set shiftwidth=4
 set laststatus=2
 set ignorecase
 set smartcase
-set mouse=a
+" set mouse=a
 set nu
 set visualbell
 set hlsearch
@@ -45,6 +45,9 @@ NeoBundle 'othree/html5.vim'
 NeoBundle 'hail2u/vim-css3-syntax'
 " angular syntax
 NeoBundle 'othree/javascript-libraries-syntax.vim'
+" power line
+NeoBundle 'Lokaltog/vim-powerline'
+NeoBundle 'stephenmckinney/vim-solarized-powerline'
 
 nmap <Leader>n : NERDTreeToggle<CR>
 
@@ -96,4 +99,11 @@ nmap <Space>bo :OperaReloadStart<CR>
 nmap <Space>bO :OperaReloadStop<CR>
 nmap <Space>ba :AllBrowserReloadStart<CR>
 nmap <Space>bA :AllBrowserReloadStop<CR>
+
+" power line settings
+let g:Powerline_symbols='fancy'
+set t_Co=256
+
+"let g:Powerline_theme='short'
+let g:Powerline_colorscheme='solarized256_dark'
 

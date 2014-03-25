@@ -11,6 +11,7 @@ install brew-cask
 
 # install packages
 install casperjs
+install fontforge
 install fuse4x
 install jmeter
 install mobile-shell
