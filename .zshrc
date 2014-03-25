@@ -97,7 +97,7 @@ alias sudo='sudo '
 alias -g L='| less'
 alias -g G='| grep'
 
-# mosh
+# mosh & ssh
 function remote() {
     if [ $# -ne 2 ]; then
         cat <<__EOF__
@@ -139,9 +139,9 @@ case ${OSTYPE} in
 esac
 
 # mongo
-alias mongostart='sudo mongod -f /usr/local/etc/mongod.conf'
+alias mongostart='sudo mongod -f /usr/local/etc/mongod.conf &'
 function mongostop() {
-    local mongopid=`less /usr/local/etc/mongod.lock`
+    local mongopid=`less /usr/local/var/mongodb/mongod.lock`
     if [[ $mongopid =~ [[:digit:]] ]]; then
         sudo kill -15 $mongopid
         echo mongod process $mongopid terminated
@@ -162,16 +162,7 @@ alias workon='pythonbrew venv use'
 alias rmvenv='pythonbrew venv delte'
 pythonbrew switch 3.3.1
 
-# postgres
-PATH=$PATH:/opt/local/lib/postgresql92/bin
-export PATH
-alias psql="psql92"
-
 # self create bin
 PATH=$PATH:~/bin
-export PATH
-
-# tex
-PATH=$PATH:/Applications/UpTeX.app/teTeX/bin
 export PATH
 
