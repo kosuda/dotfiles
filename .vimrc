@@ -9,6 +9,12 @@ set smartcase
 set nu
 set visualbell
 set hlsearch
+set wildmenu
+set showmatch
+set wrapscan
+" html, js indent
+autocmd! FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
+autocmd! FileType javascript setlocal shiftwidth=2 tabstop=2 softtabstop=2
 
 noremap <Up> <Nop>
 noremap <Down> <Nop>
