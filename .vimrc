@@ -59,7 +59,31 @@ nmap <Leader>n : NERDTreeToggle<CR>
 
 highlight SpellBad cterm=NONE ctermfg=white ctermbg=black
 
+" neocomplcache
 let g:neocomplcache_enable_at_startup = 1
+let g:neocomplcache_min_syntax_length = 3
+
+inoremap <expr><C-g> neocomplcache#undo_completion()
+inoremap <expr><C-l> neocomplcache#complete_common_string()
+" Recommended key-mappings
+" <CR>: close popup and save indent
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+    return neocomplcache#smart_close_popup() . "\<CR>"
+endfunction
+"<TAB>: completion"
+inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
+inoremap <expr><C-Y> neocomplcache#close_popup()
+inoremap <expr><C-e> neocomplcache#cancel_popup()
+
+if !exists('g:neocomplcache_omni_functions')
+	let g:neocomplcache_omni_functions = {}
+endif
+let g:neocomplcache_omni_functions.javascript = 'nodejscomplete#CompleteJS'
+
+
 autocmd FileType python set omnifunc=pythoncomplete#Complete
 
 filetype plugin indent on
@@ -75,11 +99,6 @@ map <silent> <C-P> :call <SID>Exec()<CR>
 autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
 
 autocmd FileType javascript setlocal omnifunc=nodejscomplete#CompleteJS
-
-if !exists('g:neocomplcache_omni_functions')
-	let g:neocomplcache_omni_functions = {}
-endif
-let g:neocomplcache_omni_functions.javascript = 'nodejscomplete#CompleteJS'
 
 let g:node_usejscomplete = 1
 " javascript library syntax
