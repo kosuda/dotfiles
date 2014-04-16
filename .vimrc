@@ -54,6 +54,8 @@ NeoBundle 'othree/javascript-libraries-syntax.vim'
 " power line
 NeoBundle 'Lokaltog/vim-powerline'
 NeoBundle 'stephenmckinney/vim-solarized-powerline'
+" C++
+NeoBundle 'Rip-Rip/clang_complete'
 
 nmap <Leader>n : NERDTreeToggle<CR>
 
@@ -62,6 +64,7 @@ highlight SpellBad cterm=NONE ctermfg=white ctermbg=black
 " neocomplcache
 let g:neocomplcache_enable_at_startup = 1
 let g:neocomplcache_min_syntax_length = 3
+let g:neocomplcache_force_overwrite_completefunc = 1
 
 inoremap <expr><C-g> neocomplcache#undo_completion()
 inoremap <expr><C-l> neocomplcache#complete_common_string()
@@ -78,10 +81,21 @@ inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
 inoremap <expr><C-Y> neocomplcache#close_popup()
 inoremap <expr><C-e> neocomplcache#cancel_popup()
 
+" C++ setting
+if !exists("g:neocomplcache_force_omni_patterns")
+    let g:neocomplcache_force_omni_patterns = {}
+endif
+
+" omnifunc が呼び出される場合の世紀表現パターンを設定
+let g:neocomplcache_force_omni_patterns.cpp = '[^.[:digit:]*\t]\%(\.\l->\)\l::'
+
+" nodejs
 if !exists('g:neocomplcache_omni_functions')
 	let g:neocomplcache_omni_functions = {}
 endif
 let g:neocomplcache_omni_functions.javascript = 'nodejscomplete#CompleteJS'
+
+let g:clang_complete_auto = 0
 
 
 autocmd FileType python set omnifunc=pythoncomplete#Complete
