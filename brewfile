@@ -36,6 +36,7 @@ cask install google-chrome
 cask install google-ja-input
 cask install handbrake
 cask install iterm2
+cask install mou
 cask install osxfuse
 cask install skype
 cask install utorrent
