@@ -12,6 +12,12 @@ set smartcase
 set nu
 set visualbell
 set hlsearch
+set wildmenu
+set showmatch
+set wrapscan
+" html, js indent
+autocmd! FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
+autocmd! FileType javascript setlocal shiftwidth=2 tabstop=2 softtabstop=2
 
 noremap <Up> <Nop>
 noremap <Down> <Nop>
@@ -51,12 +57,50 @@ NeoBundle 'othree/javascript-libraries-syntax.vim'
 " power line
 NeoBundle 'Lokaltog/vim-powerline'
 NeoBundle 'stephenmckinney/vim-solarized-powerline'
+" C++
+NeoBundle 'Rip-Rip/clang_complete'
 
 nmap <Leader>n : NERDTreeToggle<CR>
 
 highlight SpellBad cterm=NONE ctermfg=white ctermbg=black
 
+" neocomplcache
 let g:neocomplcache_enable_at_startup = 1
+let g:neocomplcache_min_syntax_length = 3
+let g:neocomplcache_force_overwrite_completefunc = 1
+
+inoremap <expr><C-g> neocomplcache#undo_completion()
+inoremap <expr><C-l> neocomplcache#complete_common_string()
+" Recommended key-mappings
+" <CR>: close popup and save indent
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+    return neocomplcache#smart_close_popup() . "\<CR>"
+endfunction
+"<TAB>: completion"
+inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
+inoremap <expr><C-Y> neocomplcache#close_popup()
+inoremap <expr><C-e> neocomplcache#cancel_popup()
+
+" C++ setting
+if !exists("g:neocomplcache_force_omni_patterns")
+    let g:neocomplcache_force_omni_patterns = {}
+endif
+
+" omnifunc が呼び出される場合の世紀表現パターンを設定
+let g:neocomplcache_force_omni_patterns.cpp = '[^.[:digit:]*\t]\%(\.\l->\)\l::'
+
+" nodejs
+if !exists('g:neocomplcache_omni_functions')
+	let g:neocomplcache_omni_functions = {}
+endif
+let g:neocomplcache_omni_functions.javascript = 'nodejscomplete#CompleteJS'
+
+let g:clang_complete_auto = 0
+
+
 autocmd FileType python set omnifunc=pythoncomplete#Complete
 
 filetype plugin indent on
@@ -72,11 +116,6 @@ map <silent> <C-P> :call <SID>Exec()<CR>
 autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
 
 autocmd FileType javascript setlocal omnifunc=nodejscomplete#CompleteJS
-
-if !exists('g:neocomplcache_omni_functions')
-	let g:neocomplcache_omni_functions = {}
-endif
-let g:neocomplcache_omni_functions.javascript = 'nodejscomplete#CompleteJS'
 
 let g:node_usejscomplete = 1
 " javascript library syntax
