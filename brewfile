@@ -15,6 +15,7 @@ install elasticsearch
 install fontforge
 install fuse4x
 install jmeter
+install lua
 install mobile-shell
 install mongodb
 install mysql
@@ -23,6 +24,7 @@ install phantomjs
 install sqlite3
 install subversion
 install tmux
+install vim --with-lua
 install zsh
 
 # install .dmg
