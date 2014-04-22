@@ -167,6 +167,10 @@ PATH=$PATH:~/bin
 export PATH
 
 # Add environment variable COCOS_CONSOLE_ROOT for cocos2d-x
-export COCOS_CONSOLE_ROOT=/Users/kosuda/Documents/cocos2d-x-3.0rc2/tools/cocos2d-console/bin
+export COCOS_CONSOLE_ROOT=/usr/local/cocos2d-x/tools/cocos2d-console/bin
+export NDK_ROOT=/Users/a13486/android-ndk
+export ANDROID_SDK_ROOT=/Users/a13486/adt-bundle-mac-x86_64/sdk
+export ANT_ROOT=/usr/local/opt/ant/bin
+
 export PATH=$COCOS_CONSOLE_ROOT:$PATH
 
