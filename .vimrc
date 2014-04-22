@@ -24,8 +24,6 @@ noremap <Down> <Nop>
 noremap <Left> <Nop>
 noremap <Right> <Nop>
 
-hi Comment ctermfg=1
-
 set nocompatible
 if has('vim_starting')
     set runtimepath+=~/.vim/neobundle.vim/
@@ -47,6 +45,7 @@ syntax enable
 set background=dark
 let g:solarized_termtrans=1
 colorscheme solarized
+hi Comment ctermfg=darkgray
 
 " python (TODO)
 NeoBundle 'lambdalisue/vim-python-virtualenv'
@@ -62,18 +61,27 @@ autocmd FileType python set omnifunc=pythoncomplete#Complete
 NeoBundle 'JavaScript-syntax'
 NeoBundle 'pangloss/vim-javascript'
 NeoBundle 'myhere/vim-nodejs-complete'
+
 " web開発系
 NeoBundle 'mattn/emmet-vim'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'othree/html5.vim'
 NeoBundle 'hail2u/vim-css3-syntax'
-" angular syntax
+
+" javascript libraries syntax
 NeoBundle 'othree/javascript-libraries-syntax.vim'
+
+" javascript library syntax
+let g:used_javascript_libs = 'angularjs'
+
 " power line
 NeoBundle 'Lokaltog/vim-powerline'
 NeoBundle 'stephenmckinney/vim-solarized-powerline'
-" C++
-NeoBundle 'Rip-Rip/clang_complete'
+
+let g:Powerline_symbols='fancy'
+set t_Co=256
+
+let g:Powerline_colorscheme='solarized256_dark'
 
 highlight SpellBad cterm=NONE ctermfg=white ctermbg=black
 
@@ -93,6 +101,8 @@ else
     NeoBundleFetch 'Shougo/neocomplete.vim'
     NeoBundle 'Shougo/neocomplcache.vim'
 endif
+
+autocmd FileType javascript setlocal omnifunc=nodejscomplete#CompleteJS
 
 if s:meet_neocomplete_requirements()
     "新しい設定
@@ -152,34 +162,21 @@ else
     let g:neocomplcache_omni_functions.javascript = 'nodejscomplete#CompleteJS'
 endif
 
-let g:clang_complete_auto = 0
+let g:node_usejscomplete = 1
 
+" <C-p>で実行
 function! s:Exec()
 	exe "!" . &ft . " %"
 :endfunction
 
 command! Exec call <SID>Exec()
-
 map <silent> <C-P> :call <SID>Exec()<CR>
 
 " 前回終了したカーソル行から開始
 autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
 
-autocmd FileType javascript setlocal omnifunc=nodejscomplete#CompleteJS
-
-let g:node_usejscomplete = 1
-" javascript library syntax
-let g:used_javascript_libs = 'angularjs'
-
+" 保存時に行末の空白を除去する
 autocmd BufWritePre * :%s/\s\+$//e
-
-
-" power line settings
-let g:Powerline_symbols='fancy'
-set t_Co=256
-
-"let g:Powerline_theme='short'
-let g:Powerline_colorscheme='solarized256_dark'
 
 filetype plugin indent on
 NeoBundleCheck
