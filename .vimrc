@@ -1,20 +1,34 @@
-set tabstop=4
-autocmd! FileType html setlocal tabstop=2 shiftwidth=2 softtabstop=2
-autocmd! FileType javascript setlocal tabstop=2 shiftwidth=2 softtabstop=2
-
+" 改行時に自動でインデントを挿入
 set autoindent
+
+" タブの設定
 set expandtab
+set tabstop=4
 set shiftwidth=4
+set softtabstop=4
+
+" ステータスラインの表示
 set laststatus=2
+
+" 検索機能
 set ignorecase
 set smartcase
+
+" 行番号表示
 set nu
+
+" ビープ音を消す
 set visualbell
+
+" 検索結果をハイライト
 set hlsearch
+
+" ファイルの候補を表示
 set wildmenu
-set showmatch
-set wrapscan
+
+" vimのinsertモードでバックスペース有効化
 set backspace=indent,eol,start
+
 " html, js indent
 autocmd! FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd! FileType javascript setlocal shiftwidth=2 tabstop=2 softtabstop=2
@@ -48,31 +62,69 @@ colorscheme solarized
 hi Comment ctermfg=darkgray
 
 " python (TODO)
-NeoBundle 'lambdalisue/vim-python-virtualenv'
-NeoBundle 'mitechie/pyflakes-pathogen'
-NeoBundle 'reinh/vim-makegreen'
-NeoBundle 'lambdalisue/nose.vim'
+NeoBundleLazy 'lambdalisue/vim-python-virtualenv', {
+    \ 'autoload': {
+    \   'filetype': ['python']
+    \ }}
+NeoBundleLazy 'mitechie/pyflakes-pathogen', {
+    \ 'autoload': {
+    \   'filetype': ['python']
+    \ }}
+NeoBundleLazy 'reinh/vim-makegreen', {
+    \ 'autoload': {
+    \   'filetype': ['python']
+    \ }}
+NeoBundleLazy 'lambdalisue/nose.vim', {
+    \ 'autoload': {
+    \   'filetype': ['python']
+    \ }}
 "NeoBundle 'sontek/rope-vim'
-NeoBundle 'git://github.com/vim-scripts/pythoncomplete.git'
+NeoBundleLazy 'git://github.com/vim-scripts/pythoncomplete.git', {
+    \ 'autoload': {
+    \   'filetype': ['python']
+    \ }}
 
 autocmd FileType python set omnifunc=pythoncomplete#Complete
 
 " javascript, node.js
-NeoBundle 'JavaScript-syntax'
-NeoBundle 'pangloss/vim-javascript'
-NeoBundle 'myhere/vim-nodejs-complete'
-
-" web開発系
-NeoBundle 'mattn/emmet-vim'
-NeoBundle 'tpope/vim-surround'
-NeoBundle 'othree/html5.vim'
-NeoBundle 'hail2u/vim-css3-syntax'
+NeoBundleLazy 'JavaScript-syntax', {
+    \ 'autoload': {
+    \   'filetype': ['js']
+    \ }}
+NeoBundleLazy 'pangloss/vim-javascript', {
+    \ 'autoload': {
+    \   'filetype': ['js']
+    \ }}
+NeoBundleLazy 'myhere/vim-nodejs-complete', {
+    \ 'autoload': {
+    \   'filetype': ['js']
+    \ }}
 
 " javascript libraries syntax
-NeoBundle 'othree/javascript-libraries-syntax.vim'
+NeoBundleLazy 'othree/javascript-libraries-syntax.vim', {
+    \ 'autoload' : {
+    \   'filetype' : ['js', 'html', 'htm']
+    \ }}
 
 " javascript library syntax
 let g:used_javascript_libs = 'angularjs'
+
+" web開発系
+NeoBundleLazy 'mattn/emmet-vim', {
+    \ 'autoload' : {
+    \   'filetype' : ['html', 'htm']
+    \ }}
+"" これはweb以外でも使うのでlazy loadしない
+NeoBundle 'tpope/vim-surround'
+
+NeoBundleLazy 'othree/html5.vim', {
+    \ 'autoload' : {
+    \   'filetype' : ['html', 'htm']
+    \ }}
+NeoBundleLazy 'hail2u/vim-css3-syntax', {
+    \ 'autoload' : {
+    \   'filetype' : ['css']
+    \ }}
 
 " power line
 NeoBundle 'Lokaltog/vim-powerline'
@@ -95,11 +147,17 @@ function! s:my_cr_function()
 endfunction
 
 if s:meet_neocomplete_requirements()
-    NeoBundle 'Shougo/neocomplete.vim'
+    NeoBundleLazy 'Shougo/neocomplete.vim', {
+        \ 'autoload': {
+        \   'insert': 1
+        \ }}
     NeoBundleFetch 'Shougo/neocomplcache.vim'
 else
     NeoBundleFetch 'Shougo/neocomplete.vim'
-    NeoBundle 'Shougo/neocomplcache.vim'
+    NeoBundleLazy 'Shougo/neocomplcache.vim', {
+        \ 'autoload': {
+        \   'insert': 1
+        \ }}
 endif
 
 autocmd FileType javascript setlocal omnifunc=nodejscomplete#CompleteJS
@@ -107,22 +165,13 @@ autocmd FileType javascript setlocal omnifunc=nodejscomplete#CompleteJS
 if s:meet_neocomplete_requirements()
     "新しい設定
     let g:neocomplete#enable_at_startup = 1
+    let g:neocomplete#max_list = 20
     let g:neocomplete#min_keyword_length = 3
     let g:neocomplete#force_overwrite_completefunc = 1
 
-    inoremap <expr><C-g> neocomplete#undo_completion()
     inoremap <expr><C-l> neocomplete#complete_common_string()
-    inoremap <silent><CR><C-r> = <SID>my_cr_function()<CR>
     inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
     inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-    inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-    inoremap <expr><C-Y> neocomplete#close_popup()
-    inoremap <expr><C-e> neocomplete#cancel_popup()
-
-    if !exists("g:neocomplete#force_omni_input_patterns")
-        let g:neocomplete#force_omni_input_patterns = {}
-    endif
-    let g:neocomplete#force_omni_input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
 
     if !exists("g:neocomplete#sources#omni#functions")
         let g:neocomplete#sources#omni#functions = {}
