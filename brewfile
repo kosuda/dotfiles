@@ -10,6 +10,7 @@ tap kosuda/homebrew-mycask
 install brew-cask
 
 # install packages
+install ant
 install casperjs
 install elasticsearch
 install fontforge
