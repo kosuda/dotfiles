@@ -1,7 +1,7 @@
 # 環境変数
 export LANG=ja_JP.UTF-8
 # homebrew > macports > default
-export PATH=/usr/local/bin:/opt/local/bin:/opt/local/sbin:$PATH
+export PATH=/usr/local/bin:/usr/local/sbin:/opt/local/bin:/opt/local/sbin:$PATH
 export LSCOLORS=gxfxcxdxbxegedabagacad
 export SVN_EDITOR=vim
 # 色付け
@@ -160,13 +160,16 @@ source ~/.pythonbrew/etc/bashrc
 alias mkvenv='pythonbrew venv create'
 alias workon='pythonbrew venv use'
 alias rmvenv='pythonbrew venv delte'
-pythonbrew switch 3.3.1
+# pythonbrew switch 3.3.1
 
 # self create bin
 PATH=$PATH:~/bin
 export PATH
 
 # Add environment variable COCOS_CONSOLE_ROOT for cocos2d-x
-export COCOS_CONSOLE_ROOT=/Users/kosuda/Documents/cocos2d-x-3.0rc2/tools/cocos2d-console/bin
+export COCOS_CONSOLE_ROOT=/Users/kosuda/Developer/cocos2d-x/tools/cocos2d-console/bin
+export ANDROID_SDK_ROOT=/Users/kosuda/Developer/adt-bundle/sdk
+export NDK_ROOT=/Users/kosuda/Developer/android-ndk
+export ANT_ROOT=/usr/local/bin
 export PATH=$COCOS_CONSOLE_ROOT:$PATH
 

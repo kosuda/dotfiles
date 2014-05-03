@@ -26,7 +26,7 @@ set hlsearch
 " ファイルの候補を表示
 set wildmenu
 
-" vimのinsertモードでバックスペース有効化
+" insertモードでバックスペース有効化
 set backspace=indent,eol,start
 
 " html, js indent
