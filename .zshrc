@@ -156,10 +156,10 @@ nvm use 0.10
 export NODE_PATH=${NVM_PATH}_modules
 
 # python
-source ~/.pythonbrew/etc/bashrc
-alias mkvenv='pythonbrew venv create'
-alias workon='pythonbrew venv use'
-alias rmvenv='pythonbrew venv delte'
+# source ~/.pythonbrew/etc/bashrc
+# alias mkvenv='pythonbrew venv create'
+# alias workon='pythonbrew venv use'
+# alias rmvenv='pythonbrew venv delte'
 # pythonbrew switch 3.3.1
 
 # self create bin
