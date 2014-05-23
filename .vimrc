@@ -32,6 +32,11 @@ set backspace=indent,eol,start
 " html, js indent
 autocmd! FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd! FileType javascript setlocal shiftwidth=2 tabstop=2 softtabstop=2
+" *.goはGoで開く
+autocmd BufNewFile,BufRead *.go setlocal filetype=go
+" " Go編集時はタブにする
+autocmd FileType go setlocal noexpandtab list tabstop=2 shiftwidth=2
+autocmd FileType go set nolist
 
 noremap <Up> <Nop>
 noremap <Down> <Nop>
@@ -47,10 +52,22 @@ call neobundle#rc()
 " neobundle自身をneobundleで管理する
 NeoBundleFetch 'Shougo/neobundle.vim'
 
+NeoBundle 'Shougo/vimproc', {
+  \ 'build' : {
+    \ 'windows' : 'make -f make_mingw32.mak',
+    \ 'cygwin' : 'make -f make_cygwin.mak',
+    \ 'mac' : 'make -f make_mac.mak',
+    \ 'unix' : 'make -f make_unix.mak',
+  \ },
+  \ }
+
 " ディレクトリ表示
 NeoBundle 'The-NERD-tree'
 
 nmap <Leader>n : NERDTreeToggle<CR>
+
+" syntastic
+NeoBundle 'scrooloose/syntastic'
 
 " soralized color
 NeoBundle 'altercation/vim-colors-solarized'
@@ -213,6 +230,23 @@ endif
 
 let g:node_usejscomplete = 1
 
+" go lang
+NeoBundleLazy 'Blackrush/vim-gocode', {
+    \'autoload' : {
+    \   'filetypes' : ['go']
+    \}}
+
+let g:syntastic_enable_signs=1
+let g:syntastic_auto_loc_list=2
+
+set rtp+=$GOROOT/misc/vim
+exe "set rtp+=" . globpath($GOPATH, "src/github.com/golang/lint/misc/vim")
+
+" 保存時の自動フォーマット
+auto BufWritePre *.go Fmt
+
+let g:syntastic_go_checkers = ['go', 'golint', 'govet']
+
 " <C-p>で実行
 function! s:Exec()
 	exe "!" . &ft . " %"
@@ -228,5 +262,6 @@ autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "norm
 autocmd BufWritePre * :%s/\s\+$//e
 
 filetype plugin indent on
+syntax on
 NeoBundleCheck
 
