@@ -173,3 +173,19 @@ export NDK_ROOT=/Users/kosuda/Developer/android-ndk
 export ANT_ROOT=/usr/local/bin
 export PATH=$COCOS_CONSOLE_ROOT:$PATH
 
+function k_off() {
+    sudo kextunload /System/Library/Extensions/AppleUSBTopCase.kext/Contents/PlugIns/AppleUSBTCKeyboard.kext/
+}
+
+function k_on() {
+    sudo kextload /System/Library/Extensions/AppleUSBTopCase.kext/Contents/PlugIns/AppleUSBTCKeyboard.kext/
+}
+
+export GOROOT=/usr/local/Cellar/go/1.2.1/libexec
+export GOPATH=~/.go
+export PATH=$GOPATH/bin:$PATH
+
+function fh() {
+    eval $(([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s | sed 's/ *[0-9]* *//')
+}
+
