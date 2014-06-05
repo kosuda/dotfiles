@@ -44,6 +44,7 @@ cask install iterm2
 cask install mou
 cask install osxfuse
 cask install skype
+cask install texturepacker
 cask install utorrent
 cask install vagrant
 cask install virtualbox
