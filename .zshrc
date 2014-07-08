@@ -231,7 +231,8 @@ function peco-find-cd() {
 }
 
 function peco-pushd() {
-    dirs -p -v -l | sort -k 2 -k 1n | uniq -f 1 | sort -n | sed -E 's/^[[:blank:]]+[0-9]+[[:blank:]]+//' | peco | head -n 1
+    local DIR=`dirs -p -v -l | sort -k 2 -k 1n | uniq -f 1 | sort -n | sed -E 's/^[[:blank:]]+[0-9]+[[:blank:]]+//' | peco | head -n 1 | awk '{print \$2}'`
+    cd "$DIR"
 }
 zle -N peco-pushd
 bindkey '^p' peco-pushd
