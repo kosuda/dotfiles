@@ -211,3 +211,28 @@ function peco-select-history() {
 zle -N peco-select-history
 bindkey '^r' peco-select-history
 
+function peco-find-cd() {
+    local FILENAME="$1"
+    local MAXDEPTH="${2:-3}"
+    local BASE_DIR="${3:-`pwd`}"
+
+    if [ -z "$FILENAME" ] ; then
+        echo "Usage: peco-find-cd <FILENAME> [<MAXDEPTH> [<BASE_DIR>]]" >&2
+        return 1
+    fi
+
+    local DIR=$(find ${BASE_DIR} -maxdepth ${MAXDEPTH} -name ${FILENAME} | peco | head -n 1)
+
+    if [ -n "$DIR" ] ; then
+        DIR=${DIR%/*}
+        echo "pushd \"$DIR\""
+        pushd "$DIR"
+    fi
+}
+
+function peco-pushd() {
+    dirs -p -v -l | sort -k 2 -k 1n | uniq -f 1 | sort -n | sed -E 's/^[[:blank:]]+[0-9]+[[:blank:]]+//' | peco | head -n 1
+}
+zle -N peco-pushd
+bindkey '^p' peco-pushd
+
