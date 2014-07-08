@@ -5,13 +5,15 @@ upgrade
 tap phinze/homebrew-cask || true
 tap homebrew/versions || true
 tap homebrew/binary || true
-tap kosuda/homebrew-mycask
 
 install brew-cask
 
 # install packages
+install android-ndk
+install android-sdk
 install ant
 install casperjs
+install direnv
 install elasticsearch
 install fontforge
 install fuse4x
@@ -38,7 +40,7 @@ cask install cyberduck
 cask install dropbox
 cask install firefox
 cask install google-chrome
-cask install google-ja-input
+cask install google-japanese-ime
 cask install handbrake
 cask install iterm2
 cask install mou
