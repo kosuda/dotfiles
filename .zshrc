@@ -167,10 +167,11 @@ PATH=$PATH:~/bin
 export PATH
 
 # Add environment variable COCOS_CONSOLE_ROOT for cocos2d-x
-export COCOS_CONSOLE_ROOT=/Users/kosuda/Developer/cocos2d-x/tools/cocos2d-console/bin
-export ANDROID_SDK_ROOT=/Users/kosuda/Developer/adt-bundle/sdk
-export NDK_ROOT=/Users/kosuda/Developer/android-ndk
-export ANT_ROOT=/usr/local/bin
+export COCOS_VERSION=3.2rc0
+export COCOS_CONSOLE_ROOT=/Users/${USER}/Developer/cocos2d-x-${COCOS_VERSION}/tools/cocos2d-console/bin
+export ANDROID_SDK_ROOT=/usr/local/Cellar/android-sdk/23.0.2
+export NDK_ROOT=/usr/local/Cellar/android-ndk/r9d
+export ANT_ROOT=/usr/local/Cellar/ant/1.9.4/bin
 export PATH=$COCOS_CONSOLE_ROOT:$PATH
 
 function k_off() {
@@ -181,11 +182,32 @@ function k_on() {
     sudo kextload /System/Library/Extensions/AppleUSBTopCase.kext/Contents/PlugIns/AppleUSBTCKeyboard.kext/
 }
 
-export GOROOT=/usr/local/Cellar/go/1.2.1/libexec
+export GOROOT=/usr/local/Cellar/go/1.3/libexec
 export GOPATH=~/.go
 export PATH=$GOPATH/bin:$PATH
 
-function fh() {
-    eval $(([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s | sed 's/ *[0-9]* *//')
+#function fh() {
+#    eval $(([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s | sed 's/ *[0-9]* *//')
+#}
+
+# direnv
+export EDITOR=vim
+eval "$(direnv hook $SHELL)"
+
+# peco history
+function peco-select-history() {
+    local tac
+    if which tac > /dev/null; then
+        tac="tac"
+    else
+        tac="tail -r"
+    fi
+    BUFFER=$(history -n 1 | \
+        eval $tac | \
+        peco --query "$LBUFFER")
+    CURSOR=$#BUFFER
+    zle clear-screen
 }
+zle -N peco-select-history
+bindkey '^r' peco-select-history
 
