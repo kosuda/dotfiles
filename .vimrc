@@ -66,6 +66,15 @@ NeoBundle 'The-NERD-tree'
 
 nmap <Leader>n : NERDTreeToggle<CR>
 
+" snippets
+NeoBundleLazy 'Shougo/neosnippet', {
+    \ 'autoload': {
+    \   'insert': 1,
+    \ }}
+imap <expr><TAB> neosnippet#expandable() <Bar><bar> neosnippet#jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable() <Bar><bar> neosnippet#jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+let g:neosnippet#snippets_directory = '~/.vim/snippets'
+
 " syntastic
 NeoBundle 'scrooloose/syntastic'
 
@@ -195,6 +204,12 @@ if s:meet_neocomplete_requirements()
     endif
 
     let g:neocomplete#sources#omni#functions.javascript = 'nodejscomplete#CompleteJS'
+
+    if !exists('g:neocomplete#sources#omni#input_patterns')
+        let g:neocomplete#sources#omni#input_patterns = {}
+    endif
+
+    let g:neocomplete#sources#omni#input_patterns.go = '[^.[:digit:] *\t]\.\w*'
 else
     " 今までの設定
     let g:neocomplcache_enable_at_startup = 1
@@ -231,21 +246,38 @@ endif
 let g:node_usejscomplete = 1
 
 " go lang
-NeoBundleLazy 'Blackrush/vim-gocode', {
+NeoBundleLazy 'fatih/vim-go', {
     \'autoload' : {
     \   'filetypes' : ['go']
     \}}
 
-let g:syntastic_enable_signs=1
-let g:syntastic_auto_loc_list=2
-
-set rtp+=$GOROOT/misc/vim
-exe "set rtp+=" . globpath($GOPATH, "src/github.com/golang/lint/misc/vim")
-
-" 保存時の自動フォーマット
-auto BufWritePre *.go Fmt
-
 let g:syntastic_go_checkers = ['go', 'golint', 'govet']
+let s:hooks = neobundle#get_hooks('vim-go')
+function! s:hooks.on_source(bundle)
+    let g:go_bin_path = expand('$HOME/.go/bin')
+    let g:go_disable_autoinstall = 1
+    let g:go_fmt_autosave = 1
+    let g:go_fmt_command = 'gofmt'
+    let g:go_fmt_fail_silently = 1 " use syntasitic to check errors
+    let g:go_play_open_browser = 0
+    let g:go_snippet_engine = 'neosnippet'
+    let g:neosnippet#snippets_directory .= ',~/.vim/bundle/vim-go/gosnippets/snippets'
+
+    augroup MyGoAutocmd
+        autocmd!
+        autocmd FileType go nmap <LocalLeader>i <Plug>(go-info)
+        autocmd FileType go nmap <LocalLeader>gd <Plug>(go-doc)
+        autocmd FileType go nmap <LocalLeader>gv <Plug>(go-doc-vertical)
+        autocmd FileType go nmap <LocalLeader>gb <Plug>(go-build)
+        autocmd FileType go nmap <LocalLeader>gt <Plug>(go-test)
+        autocmd FileType go nmap gd <Plug>(go-def)
+        autocmd FileType go nmap <LocalLeader>ds <Plug>(go-def-split)
+        autocmd FileType go nmap <LocalLeader>dv <Plug>(go-def-vertical)
+        autocmd FileType go nmap <LocalLeader>gl :GoLint<CR>
+    augroup END
+endfunction
+unlet s:hooks
+autocmd FileType go,neosnippet setl noet noci nopi
 
 " <C-p>で実行
 function! s:Exec()
