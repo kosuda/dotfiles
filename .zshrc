@@ -184,7 +184,12 @@ function k_on() {
 
 export GOROOT=/usr/local/Cellar/go/1.3/libexec
 export GOPATH=~/.go
-export PATH=$GOPATH/bin:$PATH
+export PATH=$GOROOT/bin:$GOPATH/bin:$PATH
+
+# Go completion
+if [ -f $GOROOT/misc/zsh/go ]; then
+    source $GOROOT/misc/zsh/go
+fi
 
 #function fh() {
 #    eval $(([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s | sed 's/ *[0-9]* *//')
