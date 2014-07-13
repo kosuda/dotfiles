@@ -21,6 +21,7 @@ install fzf
 install go
 install jmeter
 install lua
+install mercurial
 install mobile-shell
 install mongodb
 install mysql
