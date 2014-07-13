@@ -1,49 +1,3 @@
-" 改行時に自動でインデントを挿入
-set autoindent
-
-" タブの設定
-set expandtab
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
-
-" ステータスラインの表示
-set laststatus=2
-
-" 検索機能
-set ignorecase
-set smartcase
-
-" 行番号表示
-set nu
-
-" ビープ音を消す
-set visualbell
-
-" 検索結果をハイライト
-set hlsearch
-
-" ファイルの候補を表示
-set wildmenu
-
-" insertモードでバックスペース有効化
-set backspace=indent,eol,start
-
-" html, js indent
-autocmd! FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
-autocmd! FileType javascript setlocal shiftwidth=2 tabstop=2 softtabstop=2
-" *.goはGoで開く
-autocmd BufNewFile,BufRead *.go setlocal filetype=go
-" " Go編集時はタブにする
-autocmd FileType go setlocal noexpandtab list tabstop=2 shiftwidth=2
-autocmd FileType go set nolist
-
-noremap <Up> <Nop>
-noremap <Down> <Nop>
-noremap <Left> <Nop>
-noremap <Right> <Nop>
-
-set nocompatible
 if has('vim_starting')
     set runtimepath+=~/.vim/neobundle.vim/
 endif
@@ -58,13 +12,14 @@ NeoBundle 'Shougo/vimproc', {
     \ 'cygwin' : 'make -f make_cygwin.mak',
     \ 'mac' : 'make -f make_mac.mak',
     \ 'unix' : 'make -f make_unix.mak',
-  \ },
-  \ }
+  \ }}
 
 " ディレクトリ表示
 NeoBundle 'The-NERD-tree'
 
 nmap <Leader>n : NERDTreeToggle<CR>
+" バッファが無くなった時にnerd treeも閉じる
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
 " snippets
 NeoBundleLazy 'Shougo/neosnippet', {
@@ -279,21 +234,90 @@ endfunction
 unlet s:hooks
 autocmd FileType go,neosnippet setl noet noci nopi
 
-" <C-p>で実行
-function! s:Exec()
-	exe "!" . &ft . " %"
-:endfunction
+NeoBundleLazy 'thinca/vim-quickrun', {
+    \ 'commands' : 'QuickRun',
+    \ 'mappings' : [
+    \   ['nxo', '<Plug>(quickrun)']],
+    \ }
+nmap <Leader>r <Plug>(quickrun)
+let s:hooks = neobundle#get_hooks('vim-quickrun')
+function! s:hooks.on_source(bundle)
+    let g:quickrun_config = {
+        \ '_' : {
+        \   'runner' : 'vimproc',
+        \   'runner/vimproc/updatetime': 10,
+        \   'hook/time/enable' : 1,
+        \   'outputter/buffer/close_on_empty': 1,
+        \   'outputter/buffer/split' : ':botright 5sp',
+        \ },
+        \ 'go': {
+        \   'command': 'go',
+        \   'exec': ['%c run %s'],
+        \ }}
 
-command! Exec call <SID>Exec()
-map <silent> <C-P> :call <SID>Exec()<CR>
 
-" 前回終了したカーソル行から開始
-autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
-
-" 保存時に行末の空白を除去する
-autocmd BufWritePre * :%s/\s\+$//e
+endfunction
+unlet s:hooks
 
 filetype plugin indent on
 syntax on
 NeoBundleCheck
+
+" 改行時に自動でインデントを挿入
+set autoindent
+" タブの設定
+set expandtab
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+" ステータスラインの表示
+set laststatus=2
+" 検索機能
+set ignorecase
+set smartcase
+" 行番号表示
+set nu
+" ビープ音を消す
+set visualbell
+" 検索結果をハイライト
+set hlsearch
+" ファイルの候補を表示
+set wildmenu
+" insertモードでバックスペース有効化
+set backspace=indent,eol,start
+
+" html, js indent
+autocmd! FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
+autocmd! FileType javascript setlocal shiftwidth=2 tabstop=2 softtabstop=2
+" *.goはGoで開く
+autocmd BufNewFile,BufRead *.go setlocal filetype=go
+" Go編集時はタブにする
+autocmd FileType go setlocal noexpandtab list tabstop=2 shiftwidth=2
+autocmd FileType go set nolist
+" 前回終了したカーソル行から開始
+autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
+" 保存時に行末の空白を除去する
+autocmd BufWritePre * :%s/\s\+$//e
+
+" カーソル設定
+let &t_ti.="\e[1 q"
+let &t_SI.="\e[5 q"
+let &t_EI.="\e[1 q"
+let &t_te.="\e[0 q"
+
+set nocompatible
+
+map <Up> <Nop>
+map <Down> <Nop>
+map <Left> <Nop>
+map <Right> <Nop>
+
+inoremap <silent> <C-h> <C-g>u<C-h>
+inoremap <C-h> <Left>
+inoremap <C-j> <Down>
+inoremap <C-k> <Up>
+inoremap <C-l> <Right>
+
+map <Left> <Esc>:bp<CR>
+map <Right> <Esc>:bn<CR>
 
