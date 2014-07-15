@@ -307,10 +307,15 @@ let &t_te.="\e[0 q"
 
 set nocompatible
 
-map <Up> <Nop>
-map <Down> <Nop>
-map <Left> <Nop>
-map <Right> <Nop>
+noremap <Up> <Nop>
+noremap <Down> <Nop>
+noremap <Left> <Nop>
+noremap <Right> <Nop>
+
+inoremap <Up> <Nop>
+inoremap <Down> <Nop>
+inoremap <Left> <Nop>
+inoremap <Right> <Nop>
 
 inoremap <silent> <C-h> <C-g>u<C-h>
 inoremap <C-h> <Left>
