@@ -1,0 +1,14 @@
+[user]
+	name = kosuda_tatsuya
+	email = tatsuya.kosuda@gmail.com
+[core]
+	editor = /usr/bin/vim
+[ghq]
+    root = ~/.go/src
+[alias]
+    st = status
+    sh = show
+    ad = add
+    ci = commit -a
+    cam = commit -a --amend
+    co = checkout
