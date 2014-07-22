@@ -1,10 +1,13 @@
 [user]
-	name = kosuda_tatsuya
-	email = tatsuya.kosuda@gmail.com
+    name = kosuda_tatsuya
+    email = tatsuya.kosuda@gmail.com
+
 [core]
-	editor = /usr/bin/vim
+    editor = /usr/bin/vim
+
 [ghq]
     root = ~/.go/src
+
 [alias]
     st = status
     sh = show
