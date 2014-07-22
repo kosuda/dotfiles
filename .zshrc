@@ -185,13 +185,16 @@ function k_on() {
 
 GO_VERSION=1.3
 
-if [[ -s "$HOME/.gvm/scripts/gvm" ]]; then
-    source "$HOME/.gvm/scripts/gvm" && gvm use go${GO_VERSION}
-else
-    export GOROOT=/usr/local/Cellar/go/1.3/libexec
-    export GOPATH=~/.go
-    export PATH=$GOROOT/bin:$GOPATH/bin:$PATH
-fi
+#if [[ -s "$HOME/.gvm/scripts/gvm" ]]; then
+#    source "$HOME/.gvm/scripts/gvm" && gvm use go${GO_VERSION}
+#else
+#    export GOROOT=/usr/local/Cellar/go/1.3/libexec
+#    export GOPATH=~/.go
+#    export PATH=$GOROOT/bin:$GOPATH/bin:$PATH
+#fi
+export GOROOT=/usr/local/Cellar/go/${GO_VERSION}/libexec
+export GOPATH=~/.go
+export PATH=$GOROOT/bin:$GOPATH/bin:$PATH
 
 # Go completion
 if [ -f $GOROOT/misc/zsh/go ]; then
