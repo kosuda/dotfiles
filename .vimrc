@@ -21,15 +21,6 @@ nmap <Leader>n : NERDTreeToggle<CR>
 " バッファが無くなった時にnerd treeも閉じる
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
-" snippets
-NeoBundleLazy 'Shougo/neosnippet', {
-    \ 'autoload': {
-    \   'insert': 1,
-    \ }}
-imap <expr><TAB> neosnippet#expandable() <Bar><bar> neosnippet#jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable() <Bar><bar> neosnippet#jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-let g:neosnippet#snippets_directory = '~/.vim/snippets'
-
 " syntastic
 NeoBundle 'scrooloose/syntastic'
 
@@ -200,6 +191,15 @@ endif
 
 let g:node_usejscomplete = 1
 
+" snippets
+NeoBundleLazy 'Shougo/neosnippet', {
+    \ 'autoload': {
+    \   'insert': 1,
+    \ }}
+imap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+let g:neosnippet#snippets_directory = '~/.vim/snippets'
+
 " go lang
 NeoBundleLazy 'fatih/vim-go', {
     \'autoload' : {
@@ -285,6 +285,8 @@ set hlsearch
 set wildmenu
 " insertモードでバックスペース有効化
 set backspace=indent,eol,start
+" ヤンクでクリップボードにコピー
+set clipboard=unnamed,autoselect
 
 " html, js indent
 autocmd! FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
