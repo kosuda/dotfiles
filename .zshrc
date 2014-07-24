@@ -167,7 +167,8 @@ PATH=$PATH:~/bin
 export PATH
 
 # Add environment variable COCOS_CONSOLE_ROOT for cocos2d-x
-export COCOS_VERSION=3.2rc0
+COCOS_VERSION=3.2rc0
+
 export COCOS_CONSOLE_ROOT=/Users/${USER}/Developer/cocos2d-x-${COCOS_VERSION}/tools/cocos2d-console/bin
 export ANDROID_SDK_ROOT=/usr/local/Cellar/android-sdk/23.0.2
 export NDK_ROOT=/usr/local/Cellar/android-ndk/r9d
@@ -182,7 +183,16 @@ function k_on() {
     sudo kextload /System/Library/Extensions/AppleUSBTopCase.kext/Contents/PlugIns/AppleUSBTCKeyboard.kext/
 }
 
-export GOROOT=/usr/local/Cellar/go/1.3/libexec
+GO_VERSION=1.3
+
+#if [[ -s "$HOME/.gvm/scripts/gvm" ]]; then
+#    source "$HOME/.gvm/scripts/gvm" && gvm use go${GO_VERSION}
+#else
+#    export GOROOT=/usr/local/Cellar/go/1.3/libexec
+#    export GOPATH=~/.go
+#    export PATH=$GOROOT/bin:$GOPATH/bin:$PATH
+#fi
+export GOROOT=/usr/local/Cellar/go/${GO_VERSION}/libexec
 export GOPATH=~/.go
 export PATH=$GOROOT/bin:$GOPATH/bin:$PATH
 
@@ -236,10 +246,8 @@ function peco-find-cd() {
 }
 
 function peco-pushd() {
-    local DIR=`dirs -p -v -l | sort -k 2 -k 1n | uniq -f 1 | sort -n | sed -E 's/^[[:blank:]]+[0-9]+[[:blank:]]+//' | peco | head -n 1 | awk '{print \$2}'`
-    cd "$DIR"
+    eval cd $(dirs -pvl | sort -k 2 -k 1n | uniq -f 1 | sed -E 's/^[0-9]+[[:blank:]]+//' | peco | head -n 1)
     zle reset-prompt
 }
 zle -N peco-pushd
 bindkey '^p' peco-pushd
-

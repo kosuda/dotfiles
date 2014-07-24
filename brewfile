@@ -29,6 +29,7 @@ install mysql
 install ntfs-3g
 install phantomjs
 install postgresql
+install redis
 install sqlite3
 install subversion
 install tmux
