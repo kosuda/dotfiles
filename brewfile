@@ -12,6 +12,7 @@ install brew-cask
 install android-ndk
 install android-sdk
 install ant
+install bzr
 install casperjs
 install direnv
 install elasticsearch
@@ -27,6 +28,7 @@ install mongodb
 install mysql
 install ntfs-3g
 install phantomjs
+install postgresql
 install sqlite3
 install subversion
 install tmux
