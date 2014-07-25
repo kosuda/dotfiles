@@ -1,6 +1,6 @@
-source ~/dotfiles/.vim/vimrc.d/vimrc.bundle
+source ~/dotfiles/vim/vimrc.d/vimrc.bundle
 
-source ~/dotfiles/.vim/vimrc.d/vimrc.bundle.config
+source ~/dotfiles/vim/vimrc.d/vimrc.bundle.config
 
 " 256色使用
 set t_Co=256
