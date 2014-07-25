@@ -251,3 +251,11 @@ function peco-pushd() {
 }
 zle -N peco-pushd
 bindkey '^p' peco-pushd
+
+function peco-ghq-cd() {
+    eval cd $(ghq list -p | peco)
+    zle -R
+}
+zle -N peco-ghq-cd
+bindkey '^g' peco-ghq-cd
+
