@@ -19,6 +19,7 @@ install elasticsearch
 install fontforge
 install fuse4x
 install fzf
+install git
 install go
 install jmeter
 install lua
