@@ -1,5 +1,5 @@
 if has('vim_starting')
-    set runtimepath+=~/dotfiles/.vim/neobundle.vim/
+    set runtimepath+=~/.vim/neobundle.vim
 endif
 call neobundle#rc()
 
