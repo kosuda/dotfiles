@@ -54,17 +54,25 @@ inoremap <C-l> <Right>
 map <Left> <Esc>:bp<CR>
 map <Right> <Esc>:bn<CR>
 
+" *.goはGoで開く
+autocmd BufNewFile,BufRead *.go setlocal filetype=go
 " html, js indent
 autocmd! FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd! FileType javascript setlocal shiftwidth=2 tabstop=2 softtabstop=2
-" *.goはGoで開く
-autocmd BufNewFile,BufRead *.go setlocal filetype=go
 " Go編集時はタブにする
-autocmd FileType go setlocal noexpandtab list tabstop=2 shiftwidth=2
-autocmd FileType go set nolist
-autocmd FileType go,neosnippet setl noet noci nopi
+autocmd! FileType go setlocal noexpandtab tabstop=2 shiftwidth=2
 " 前回終了したカーソル行から開始
 autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
 " 保存時に行末の空白を除去する
 autocmd BufWritePre * :%s/\s\+$//e
+
+"------------------------------------
+" auto reload .vimrc
+" TODO : 色がおかしくなる
+"------------------------------------
+augroup source-vimrc
+  autocmd!
+  autocmd BufWritePost *vimrc source $MYVIMRC | set foldmethod=marker
+  autocmd BufWritePost *gvimrc if has('gui_running') source $MYGVIMRC
+augroup END
 
