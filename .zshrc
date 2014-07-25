@@ -27,7 +27,8 @@ zstyle ':zle:*' world-style unspecified
 
 # 補完
 # 補完機能強化
-fpath=(/usr/local/zsh-completions/src $fpath)
+#fpath=(dotfiles/.zsh/plugins/zsh-completions/src $fpath)
+fpath=(dotfiles/.zsh $fpath)
 # 補完機能を有効化
 autoload -Uz compinit
 compinit
