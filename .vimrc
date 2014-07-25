@@ -1,6 +1,9 @@
-source ~/dotfiles/vim/vimrc.d/vimrc.bundle
-
-source ~/dotfiles/vim/vimrc.d/vimrc.bundle.config
+if filereadable(expand('$HOME/dotfiles/vim/vimrc.d/vimrc.bundle'))
+    source ~/dotfiles/vim/vimrc.d/vimrc.bundle
+    if filereadable(expand('$HOME/dotfiles/vim/vimrc.d/vimrc.bundle.config'))
+        source ~/dotfiles/vim/vimrc.d/vimrc.bundle.config
+    endif
+endif
 
 " 256色使用
 set t_Co=256
