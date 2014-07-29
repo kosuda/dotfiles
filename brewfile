@@ -34,6 +34,7 @@ install redis
 install sqlite3
 install subversion
 install tmux
+install tree
 install vim --with-lua
 install zsh
 
@@ -45,12 +46,14 @@ cask install cyberduck
 cask install dropbox
 cask install firefox
 cask install google-chrome
+cask install google-drive
 cask install google-japanese-ime
 cask install handbrake
 cask install iterm2
 cask install mou
 cask install osxfuse
 cask install skype
+cask install sourcetree
 cask install texturepacker
 cask install utorrent
 cask install vagrant
