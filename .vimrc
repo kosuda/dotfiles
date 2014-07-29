@@ -79,3 +79,11 @@ augroup source-vimrc
   autocmd BufWritePost *gvimrc if has('gui_running') source $MYGVIMRC
 augroup END
 
+"--------------------------
+" include path of c++
+"--------------------------
+augroup cpp-path
+    autocmd!
+    autocmd FileType cpp setl path=.,/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/c++/v1,~/Developer/cocos2d-x/cocos
+augroup END
+

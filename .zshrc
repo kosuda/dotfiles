@@ -168,9 +168,7 @@ PATH=$PATH:~/bin
 export PATH
 
 # Add environment variable COCOS_CONSOLE_ROOT for cocos2d-x
-COCOS_VERSION=3.2rc0
-
-export COCOS_CONSOLE_ROOT=/Users/${USER}/Developer/cocos2d-x-${COCOS_VERSION}/tools/cocos2d-console/bin
+export COCOS_CONSOLE_ROOT=/Users/${USER}/Developer/cocos2d-x/tools/cocos2d-console/bin
 export ANDROID_SDK_ROOT=/usr/local/Cellar/android-sdk/23.0.2
 export NDK_ROOT=/usr/local/Cellar/android-ndk/r9d
 export ANT_ROOT=/usr/local/Cellar/ant/1.9.4/bin

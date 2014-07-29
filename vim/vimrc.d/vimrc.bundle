@@ -138,6 +138,16 @@ NeoBundleLazy 'thinca/vim-quickrun', {
     \   ['nxo', '<Plug>(quickrun)']],
     \ }
 
+" コメントON/OFFを手軽に実行
+NeoBundle 'tomtom/tcomment_vim'
+
+" ログファイルを色づけしてくれる
+NeoBundle 'vim-scripts/AnsiEsc.vim'
+
+" c++
+NeoBundleLazy 'Rip-Rip/clang_complete', {
+            \ 'autoload' : {'filetypes' : ['c', 'cpp']}
+            \ }
 filetype plugin indent on
 syntax on
 NeoBundleCheck
