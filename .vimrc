@@ -59,9 +59,10 @@ map <Right> <Esc>:bn<CR>
 
 " *.goはGoで開く
 autocmd BufNewFile,BufRead *.go setlocal filetype=go
-" html, js indent
+" html, js indent, json
 autocmd! FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd! FileType javascript setlocal shiftwidth=2 tabstop=2 softtabstop=2
+autocmd! FileType json setlocal shiftwidth=2 tabstop=2 softtabstop=2
 " Go編集時はタブにする
 autocmd! FileType go setlocal noexpandtab tabstop=2 shiftwidth=2
 " 前回終了したカーソル行から開始

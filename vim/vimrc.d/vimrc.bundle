@@ -126,6 +126,11 @@ NeoBundleLazy 'Shougo/neosnippet', {
     \   'insert': 1,
     \ }}
 
+NeoBundleLazy 'Shougo/neosnippet-snippets', {
+    \ 'autoload': {
+    \   'insert': 1,
+    \ }}
+
 " go lang
 NeoBundleLazy 'fatih/vim-go', {
     \'autoload' : {
