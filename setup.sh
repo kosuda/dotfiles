@@ -1,6 +1,6 @@
-#! /bin/bash
+#!/bin/bash
 
-DOT_FILES=(.vimrc,.gitconfig,.tmux.conf,.xvimrc,.zshrc)
+DOT_FILES=(".vimrc" ".gitconfig" ".tmux.conf" ".xvimrc" ".zshrc")
 
 if [ ! -d $HOME/.vim/bundle ]; then
     mkdir -p ~/.vim/bundle
