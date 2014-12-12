@@ -152,11 +152,11 @@ function mongostop() {
 }
 
 # node
-source ~/.nvm/nvm.sh
-nvm use 0.10
-export NODE_PATH=${NVM_PATH}_modules
+source $(brew --prefix nvm)/nvm.sh
+export NVM_DIR=~/.nvm
+nvm use v0.10
 
-# python
+ #python
 # source ~/.pythonbrew/etc/bashrc
 # alias mkvenv='pythonbrew venv create'
 # alias workon='pythonbrew venv use'
@@ -170,7 +170,7 @@ export PATH
 # Add environment variable COCOS_CONSOLE_ROOT for cocos2d-x
 export COCOS_CONSOLE_ROOT=/Users/${USER}/Developer/cocos2d-x/tools/cocos2d-console/bin
 export ANDROID_SDK_ROOT=/usr/local/Cellar/android-sdk/23.0.2
-export NDK_ROOT=/usr/local/Cellar/android-ndk/r9d
+export NDK_ROOT=/usr/local/Cellar/android-ndk/r10b
 export ANT_ROOT=/usr/local/Cellar/ant/1.9.4/bin
 export PATH=$COCOS_CONSOLE_ROOT:$PATH
 
@@ -182,7 +182,7 @@ function k_on() {
     sudo kextload /System/Library/Extensions/AppleUSBTopCase.kext/Contents/PlugIns/AppleUSBTCKeyboard.kext/
 }
 
-GO_VERSION=1.3
+GO_VERSION=1.3.3
 
 #if [[ -s "$HOME/.gvm/scripts/gvm" ]]; then
 #    source "$HOME/.gvm/scripts/gvm" && gvm use go${GO_VERSION}
@@ -191,7 +191,8 @@ GO_VERSION=1.3
 #    export GOPATH=~/.go
 #    export PATH=$GOROOT/bin:$GOPATH/bin:$PATH
 #fi
-export GOROOT=/usr/local/Cellar/go/${GO_VERSION}/libexec
+# export GOROOT=/usr/local/Cellar/go/${GO_VERSION}/libexec
+export GOROOT=~/Documents/tmp/go
 export GOPATH=~/.go
 export PATH=$GOROOT/bin:$GOPATH/bin:$PATH
 
@@ -216,9 +217,8 @@ function peco-select-history() {
     else
         tac="tail -r"
     fi
-    BUFFER=$(history -n 1 | \
-        eval $tac | \
-        peco --query "$LBUFFER")
+    BUFFER=$(history -n 1 | eval $tac | peco | head -n 1)
+    echo $#BUFFER
     CURSOR=$#BUFFER
     zle clear-screen
 }
@@ -252,8 +252,12 @@ zle -N peco-pushd
 bindkey '^p' peco-pushd
 
 function peco-ghq-cd() {
-    eval cd $(ghq list -p | peco)
-    zle -R
+    local select_dir=$(ghq list --full-path | peco)
+    if [ -n "${select_dir}" ]; then
+        BUFFER="cd ${select_dir}"
+        zle accept-line
+    fi
+    zle clear-screen
 }
 zle -N peco-ghq-cd
 bindkey '^g' peco-ghq-cd
