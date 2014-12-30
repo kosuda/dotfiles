@@ -16,6 +16,7 @@ install bzr
 install casperjs
 install direnv
 install elasticsearch
+install exiftool
 install fontforge
 install fuse4x
 install fzf
